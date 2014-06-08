@@ -5,7 +5,7 @@ package com.ipz2014.android.net;
  */
 public class Params {
 
-    private static String BASE_URL = "";
+    private static String BASE_URL = "http://fixmeipz.appspot.com/api/";
     public static String FEEDBACK_URL = BASE_URL + "feedback";
 
     public static String EMAIL = "email";
