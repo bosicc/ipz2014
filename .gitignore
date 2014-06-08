@@ -1,4 +1,31 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+out/
+build/
+proguard_logs/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# === Gradle files ====
+Cluedologs/build/
 .gradle
-/local.properties
-/.idea/workspace.xml
+
+# === Android Studio ===
+.idea
 .DS_Store
+app/app.iml
+lins/LikeOrmCommons/LikeOrmCommons.iml
+lins/LikeOrmLib/LikeOrmLib.iml
+lins/volley/volley.iml
