@@ -13,7 +13,7 @@ public class APIFacade {
 
     private static APIFacade instance = null;
 
-    public APIFacade getInstance() {
+    public static APIFacade getInstance() {
         if (instance == null) {
             instance = new APIFacade();
         }
