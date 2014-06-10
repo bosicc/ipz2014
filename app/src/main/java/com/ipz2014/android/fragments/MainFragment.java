@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ipz2014.android.R;
 import com.ipz2014.android.net.APIFacade;
+import org.json.JSONObject;
 
 /**
  * Created by bosicc on 09.06.2014.
@@ -39,29 +40,35 @@ public class MainFragment extends Fragment {
                 showProgress(true);
                 String email = editEmail.getText().toString();
                 String feedback = editFeedback.getText().toString();
-                APIFacade.getInstance().sendUserFeedback(email, feedback, new Response.Listener<String>() {
+                APIFacade.getInstance().sendUserFeedback(email, feedback,
+                    new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(String s) {
+                        public void onResponse(JSONObject response) {
                             showProgress(false);
-                            Log.d(TAG, "onResponse() [response=" + s+"]");
-                            Toast toast = Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT);
+                            Log.d(TAG, "onResponse() [response=" + response.toString() + "]");
+                            Toast toast = Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_LONG);
                             toast.show();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            showProgress(false);
-                            Log.w(TAG, "onError() [volleyError=" + volleyError + "]");
+                    }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                showProgress(false);
+                                Log.w(TAG, "onError() [volleyError=" + error + "]");
+                                Toast toast = Toast.makeText(getActivity(), "OOps! Some connection problem!",
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
                         }
-                    });
+                );
             }
         });
+
+
 
         return rootView;
     }
 
     private void showProgress(boolean isShow) {
-        progress.setVisibility(isShow ? View.INVISIBLE : View.INVISIBLE);
+        progress.setVisibility(isShow ? View.VISIBLE : View.INVISIBLE);
     }
 }
