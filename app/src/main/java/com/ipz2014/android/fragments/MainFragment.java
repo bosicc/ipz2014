@@ -65,7 +65,8 @@ public class MainFragment extends Fragment {
                             if (result.isSuccess()) {
                                 text = result.getData();
 
-                                addFeedbackToDB(getActivity(), item);
+                                // FIXME: Update LikeOrm and modify insert operation as it does in examples
+                                //addFeedbackToDB(getActivity(), item);
                             } else {
                                 text = "Error: " + result.getData();
                             }
