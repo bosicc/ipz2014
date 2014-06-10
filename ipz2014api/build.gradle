@@ -34,8 +34,24 @@ dependencies {
 }
 
 appengine {
-  downloadSdk = true
-  appcfg {
-    oauth2 = true
-  }
+    httpPort = 8080
+
+    downloadSdk = true
+
+    appcfg {
+        email = 'b.pratsiuk@gmail.com'
+        passIn = true
+
+        logs {
+            severity = 1
+            outputFile = file('blizelogs.txt')
+        }
+
+        app {
+            id = 'blizeapi'
+            accessCode = 'yourAccessCodeHere'
+        }
+
+        oauth2 = false
+    }
 }

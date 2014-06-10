@@ -1,11 +1,10 @@
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.ipz2014.android"
         minSdkVersion 9
         targetSdkVersion 19
         versionCode 1
