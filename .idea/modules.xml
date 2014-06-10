@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/libs/LikeOrmCommons/LikeOrmCommons.iml" filepath="$PROJECT_DIR$/libs/LikeOrmCommons/LikeOrmCommons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/LikeOrmLib/LikeOrmLib.iml" filepath="$PROJECT_DIR$/libs/LikeOrmLib/LikeOrmLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ipz2014.iml" filepath="$PROJECT_DIR$/ipz2014.iml" />
       <module fileurl="file://$PROJECT_DIR$/ipz2014api/ipz2014api.iml" filepath="$PROJECT_DIR$/ipz2014api/ipz2014api.iml" />
