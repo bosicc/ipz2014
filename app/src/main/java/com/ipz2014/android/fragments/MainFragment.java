@@ -11,8 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.ipz2014.android.R;
 import com.ipz2014.android.net.APIFacade;
+import com.ipz2014.android.model.GetUserFeedbackResponse;
 import org.json.JSONObject;
 
 /**
@@ -45,8 +47,17 @@ public class MainFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             showProgress(false);
+                            Gson gson = new Gson();
+                            GetUserFeedbackResponse result = gson.fromJson(response.toString(),
+                                    GetUserFeedbackResponse.class);
                             Log.d(TAG, "onResponse() [response=" + response.toString() + "]");
-                            Toast toast = Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_LONG);
+                            String text = "";
+                            if (result.isSuccess()) {
+                                text = result.getData();
+                            } else {
+                                text = "Error: " + result.getData();
+                            }
+                            Toast toast = Toast.makeText(getActivity(), text, Toast.LENGTH_LONG);
                             toast.show();
                         }
                     }, new Response.ErrorListener() {
