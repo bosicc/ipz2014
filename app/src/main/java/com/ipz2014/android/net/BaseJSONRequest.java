@@ -4,7 +4,6 @@ import android.util.Log;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import org.json.JSONException;
@@ -30,10 +29,12 @@ public class BaseJSONRequest extends JsonRequest<JSONObject> {
 
             boolean hasStatus = responseObject.has(STATUS_OK);
 
-            if (hasStatus) {
-                boolean isSuccess = responseObject.getBoolean(STATUS_OK);
-                if (!isSuccess) return Response.error(new ServerError());
-            }
+//            if (hasStatus) {
+//                boolean isSuccess = responseObject.getBoolean(STATUS_OK);
+//                if (!isSuccess)  {
+//                    return Response.
+//                }(new ServerError());
+//            }
             return Response.success(responseObject, HttpHeaderParser.parseCacheHeaders(response));
 
         } catch (UnsupportedEncodingException e) {
@@ -41,5 +42,13 @@ public class BaseJSONRequest extends JsonRequest<JSONObject> {
         } catch (JSONException je) {
             return Response.error(new ParseError(je));
         }
+    }
+
+    @Override
+    public String getBodyContentType() {
+        // Read at http://stackoverflow.com/questions/17646036/exectuing-http-post-returns-html-instead-of-json
+        String type = "application/x-www-form-urlencoded";
+        Log.d(TAG, "getBodyContentType() [" + type + "]");
+        return type;
     }
 }
