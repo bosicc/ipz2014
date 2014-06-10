@@ -1,5 +1,7 @@
 package com.ipz2014.android.fragments;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,10 +13,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.github.nrudenko.orm.QueryBuilder;
 import com.google.gson.Gson;
 import com.ipz2014.android.R;
-import com.ipz2014.android.net.APIFacade;
+import com.ipz2014.android.db.SimpleContentProvider;
+import com.ipz2014.android.model.FeedbackPOJO;
 import com.ipz2014.android.model.GetUserFeedbackResponse;
+import com.ipz2014.android.net.APIFacade;
 import org.json.JSONObject;
 
 /**
@@ -42,6 +47,11 @@ public class MainFragment extends Fragment {
                 showProgress(true);
                 String email = editEmail.getText().toString();
                 String feedback = editFeedback.getText().toString();
+
+                final FeedbackPOJO item = new FeedbackPOJO();
+                item.setEmail(email);
+                item.setFeedback(feedback);
+
                 APIFacade.getInstance().sendUserFeedback(email, feedback,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -54,6 +64,8 @@ public class MainFragment extends Fragment {
                             String text = "";
                             if (result.isSuccess()) {
                                 text = result.getData();
+
+                                addFeedbackToDB(getActivity(), item);
                             } else {
                                 text = "Error: " + result.getData();
                             }
@@ -81,5 +93,15 @@ public class MainFragment extends Fragment {
 
     private void showProgress(boolean isShow) {
         progress.setVisibility(isShow ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void addFeedbackToDB(Context context, FeedbackPOJO item) {
+        QueryBuilder qb = new QueryBuilder(context, SimpleContentProvider.class).table(FeedbackPOJO.class);
+        qb.insert(item, new QueryBuilder.OnFinishedListener() {
+            @Override
+            public void onQueryFinished(Cursor cursor) {
+                Log.d(TAG, "Added!!!() ");
+            }
+        });
     }
 }
