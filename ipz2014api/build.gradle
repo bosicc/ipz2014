@@ -44,11 +44,11 @@ appengine {
 
         logs {
             severity = 1
-            outputFile = file('blizelogs.txt')
+            outputFile = file('ipz2014logs.txt')
         }
 
         app {
-            id = 'blizeapi'
+            id = 'ipz2014api'
             accessCode = 'yourAccessCodeHere'
         }
 
